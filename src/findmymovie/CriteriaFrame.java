@@ -1,16 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package findmymovie;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 
@@ -23,15 +23,12 @@ public class CriteriaFrame extends javax.swing.JFrame {
      List<Film> allFilms = new ArrayList<Film>();
      List<Film> selectedFilms = new ArrayList<Film>();
     private Object frame;
-    /**
-     * Creates new form CriteriaFrame
-     */
-    public CriteriaFrame(List<Film> films, List<String> failFilms) {
+    public CriteriaFrame(List<Film> films, List<String> filmfails) {
         
         initComponents();
         
         scrollPanel.getViewport().setBackground(new Color(25,25,25));
-        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
         List<String> types = new ArrayList<String>();
@@ -51,7 +48,31 @@ public class CriteriaFrame extends javax.swing.JFrame {
         typeFilms2.add("Aventure");
         typeFilms2.add("Action");
         
-        
+        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
+        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
         allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
         allFilms.add(new Film("ace ventura", actors2, 2007, "Bernardo", typeFilms2));
         
@@ -113,11 +134,12 @@ public class CriteriaFrame extends javax.swing.JFrame {
         panelFilms = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(25, 25, 25));
         jPanel1.setPreferredSize(new java.awt.Dimension(610, 625));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/findmymovie/findmymovies2.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\sebastien.martin@cpnv.ch\\Documents\\NetBeansProjects\\Test Java\\findmymovies2.png")); // NOI18N
 
         pnlType.setBackground(new java.awt.Color(25, 25, 25));
 
@@ -149,6 +171,8 @@ public class CriteriaFrame extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(242, 242, 242));
         jLabel3.setText("Acteur :");
 
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\sebastien.martin@cpnv.ch\\Documents\\6) Projet\\interro.png")); // NOI18N
+
         txtActors.setBackground(new java.awt.Color(50, 50, 50));
         txtActors.setFont(new java.awt.Font("Raleway", 0, 11)); // NOI18N
         txtActors.setForeground(new java.awt.Color(242, 242, 242));
@@ -162,6 +186,8 @@ public class CriteriaFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(242, 242, 242));
         jLabel4.setText("Réalisateur :");
+
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\sebastien.martin@cpnv.ch\\Documents\\6) Projet\\interro.png")); // NOI18N
 
         txtRealisator.setBackground(new java.awt.Color(50, 50, 50));
         txtRealisator.setFont(new java.awt.Font("Raleway", 0, 11)); // NOI18N
@@ -339,8 +365,14 @@ public class CriteriaFrame extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         
+        JLabel lbl = null;
+        int y = 0;
+        int x = 0;
+        int JPanelStartHeight = 561;
+        
         for (Film film : allFilms){
             Boolean isConform = true;
+            System.out.println(film.getTitle());
             
             // test Begin Year
             if (!txtYearBegin.getText().trim().isEmpty()){
@@ -349,6 +381,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
                     isConform = false;
                 }
             }
+            
             
             // test End year
             if (!txtYearEnd.getText().trim().isEmpty()){
@@ -359,59 +392,62 @@ public class CriteriaFrame extends javax.swing.JFrame {
             }
             
             // test acteur
-            List<String> actorsCriteria = Arrays.asList(txtActors.getText().split("\\,"));
-            for (String actorCriteria : actorsCriteria){
-                Boolean isMatchActor = false;
-                for (String actorFilm : film.getActors()){
-                    if (actorFilm.toLowerCase().matches(".*"+actorCriteria.trim().toLowerCase()+".*")){
-                        isMatchActor = true;
+            if (!txtActors.getText().trim().isEmpty()){
+                List<String> actorsCriteria = Arrays.asList(txtActors.getText().split("\\,"));
+                for (String actorCriteria : actorsCriteria){
+                    Boolean isMatchActor = false;
+                    for (String actorFilm : film.getActors()){
+                        if (actorFilm.toLowerCase().matches(".*"+actorCriteria.trim().toLowerCase()+".*")){
+                            isMatchActor = true;
+                        }
                     }
-                }
-                
-                if (!isMatchActor){
-                    isConform = false;
 
+                    if (!isMatchActor){
+                        isConform = false;
+
+                    }
                 }
             }
                         
             // test réalisateur
-            List<String> realisatorsCriteria = Arrays.asList(txtRealisator.getText().split("\\,"));
-            Boolean isMatchRealisator = false;
-            for (String realisatorCriteria : realisatorsCriteria){
-                if (film.getRealisator().toLowerCase().matches(".*"+realisatorCriteria.toLowerCase().trim()+".*")){
-                    isMatchRealisator = true;
+            if (!txtRealisator.getText().trim().isEmpty()){
+                List<String> realisatorsCriteria = Arrays.asList(txtRealisator.getText().split("\\,"));
+                Boolean isMatchRealisator = false;
+                for (String realisatorCriteria : realisatorsCriteria){
+                    if (film.getRealisator().toLowerCase().matches(".*"+realisatorCriteria.toLowerCase().trim()+".*")){
+                        isMatchRealisator = true;
+                    }
                 }
-            }
             
-            if(!isMatchRealisator){
-                isConform = false;
-            }
-                                    
+                if(!isMatchRealisator){
+                    isConform = false;
+                }
+            }                    
             // test recherche nom
-            Boolean isMatchNameFilm = false;
-            if (!searchByName.getText().isEmpty()){
-                String nameFilmCriteria = searchByName.getText();
-                if (film.getTitle().toLowerCase().matches(".*"+nameFilmCriteria.toLowerCase()+".*")){
-                    isMatchNameFilm = true;
-                }
-            }
-            
-            if(!isMatchNameFilm){
+            if (!searchByName.getText().isEmpty() && !searchByName.getText().equals(film.getTitle())){
                 isConform = false;
             }
-
-            
-
-            
-            
-            
-
-            
-            
-            
             
             if (isConform){
                 selectedFilms.add(film);
+                JButton b2 = new JButton(film.getTitle().toUpperCase());
+                Font fonte = new Font("Raleway",Font.BOLD,12);
+                b2.setFont(fonte);
+                b2.setForeground(new Color(230,230,230));
+                b2.setBackground(new Color(40,40,40));
+                b2.setHorizontalTextPosition(AbstractButton.LEADING);
+                b2.setBorder(BorderFactory.createLineBorder(new Color(50,50,50)));
+                b2.setSize(336, 40);
+                b2.setLocation(x,y);
+                y +=45;
+                if (y >= 540){
+                    JPanelStartHeight += 45;
+                    panelFilms.setSize(new Dimension(342, JPanelStartHeight));  
+                    scrollPanel.revalidate();
+                }
+                panelFilms.add(b2);
+                panelFilms.validate();
+                panelFilms.repaint();
                 System.out.println(film.getTitle());
             }
             
@@ -438,35 +474,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
     private void txtYearBeginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtYearBeginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtYearBeginActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CriteriaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CriteriaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CriteriaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CriteriaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
