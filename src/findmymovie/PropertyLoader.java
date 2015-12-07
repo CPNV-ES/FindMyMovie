@@ -17,7 +17,6 @@ import java.util.Properties;
 public class PropertyLoader{
     
     
-    
     public static Properties load(String filename) throws IOException, FileNotFoundException{
         
       Properties properties = new Properties();
@@ -32,6 +31,5 @@ public class PropertyLoader{
          input.close();
       }  
     }
-    
     
 }

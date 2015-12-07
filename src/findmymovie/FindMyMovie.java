@@ -17,10 +17,11 @@ import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+
 public class FindMyMovie {
 
+    private static Config conf = null;
     public static void main(String[] args) {
-        // Load properties from properties.properties
         loadProperties();
         
         // Launch the first interface to select the film folder
@@ -28,17 +29,12 @@ public class FindMyMovie {
         selectPathFrame.setVisible(true);
     }
     
+    /**
+     * Load properties file and fill the Config object
+     */
     private static void loadProperties(){
-        try {
-            System.out.println("Bouh");
-            Properties properties = PropertyLoader.load("properties.properties");
-            Config.weburl = properties.getProperty("webserviceurl");
-            Config.extensions = properties.getProperty("extensionfilms");
-            System.out.println(Config.weburl);
-            
-        } catch (Exception e){
-            
-        }
+        conf =  Config.load();
+        System.out.println(conf.getWeburl());
     }
     
     /**
@@ -47,7 +43,8 @@ public class FindMyMovie {
      * @return 
      */
     static String getConnexion(String filmTitle){
-        String uri = Config.weburl+filmTitle.trim().replace(" ","%20");
+        
+        String uri = conf.getWeburl()+filmTitle.trim().replace(" ","%20");
         System.out.println(uri);
         String json="";
         try {
