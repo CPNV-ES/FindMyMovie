@@ -185,8 +185,8 @@ public class SelectPathFolder extends javax.swing.JFrame {
         try {
             filmTitles = addTree(directory, filmTitles);
             for (Film title : filmTitles){
-                String json = main.getConnexion(title.getTitle());
-                Film film = main.generateFilm(json, title.getTitle());
+                String json = FindMyMovie.getConnexion(title.getTitle());
+                Film film = FindMyMovie.generateFilm(json, title.getTitle());
                 if (film==null){
                     failFilms.add(title.getPath());
                 } else {
@@ -211,7 +211,7 @@ public class SelectPathFolder extends javax.swing.JFrame {
                     String tempFileName = child.getFileName().toString();
                     String extention = tempFileName.substring(tempFileName.lastIndexOf("."));
                     if (extention.equals(".avi") || extention.equals(".mkv") || extention.equals(".mp4")){
-                        String filmName = main.extractFilmTitle(tempFileName.substring(0, tempFileName.lastIndexOf(".")));
+                        String filmName = FindMyMovie.extractFilmTitle(tempFileName.substring(0, tempFileName.lastIndexOf(".")));
                         films.add(new Film(filmName, child.getParent().toString()+"\\"+child.getFileName()));
                     }
                 } else {

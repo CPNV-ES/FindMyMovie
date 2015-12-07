@@ -22,9 +22,9 @@ public class FilmDetails extends javax.swing.JFrame {
         try {
             StringBuffer actors=new StringBuffer();
             lblTitle.setText(film.getTitle());
-            for (int i=0;i<film.getActeurs().size();i++){
-                actors.append(film.getActeurs().get(i));
-                if (i != film.getActeurs().size()){
+            for (int i=0;i<film.getActors().size();i++){
+                actors.append(film.getActors().get(i));
+                if (i != film.getActors().size()){
                     actors.append(", ");
                 }
                 if (i%2 == 1){
@@ -33,7 +33,6 @@ public class FilmDetails extends javax.swing.JFrame {
                 
             }
              txtpActors.setText(actors.toString());
-             lblKind.setText(setLength.toString());
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

@@ -5,10 +5,7 @@
  */
 package findmymovie;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -19,22 +16,39 @@ import java.util.Arrays;
 import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-public class main {
 
-    /**
-     * @param args the command line arguments
-     */
+public class FindMyMovie {
+
     public static void main(String[] args) {
+        // Load properties from properties.properties
+        loadProperties();
         
+        // Launch the first interface to select the film folder
         SelectPathFolder selectPathFrame = new SelectPathFolder();
         selectPathFrame.setVisible(true);
-        
-        
     }
     
+    private static void loadProperties(){
+        try {
+            System.out.println("Bouh");
+            Properties properties = PropertyLoader.load("properties.properties");
+            Config.weburl = properties.getProperty("webserviceurl");
+            Config.extensions = properties.getProperty("extensionfilms");
+            System.out.println(Config.weburl);
+            
+        } catch (Exception e){
+            
+        }
+    }
+    
+    /**
+     * Open connexino with omdbapi to get the json of this film with its informations
+     * @param filmTitle
+     * @return 
+     */
     static String getConnexion(String filmTitle){
-        String uri = "http://www.omdbapi.com/?t="+filmTitle.trim().replace(" ","%20");
+        String uri = Config.weburl+filmTitle.trim().replace(" ","%20");
+        System.out.println(uri);
         String json="";
         try {
 
@@ -68,8 +82,7 @@ public class main {
     
     static String extractFilmTitle(String fileName){
         
-//        Properties properties = PropertyLoader.load("properties.properties");
-//        System.out.println(properties.getProperty("extensionfilms"));
+        
         fileName=fileName.substring(fileName.indexOf("]")+1);
         List<String> items = new ArrayList<>();
         String[] pieces = fileName.split("[\\s_.]");
