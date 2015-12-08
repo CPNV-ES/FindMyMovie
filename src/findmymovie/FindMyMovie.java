@@ -1,10 +1,15 @@
+package findmymovie;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package findmymovie;
 
+
+import configs.Config;
+import frames.SelectPathFolder;
+import classes.Film;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -42,7 +47,7 @@ public class FindMyMovie {
      * @param filmTitle
      * @return 
      */
-    static String getConnexion(String filmTitle){
+    public static String getConnexion(String filmTitle){
         
         String uri = conf.getWeburl()+filmTitle.trim().replace(" ","%20");
         System.out.println(uri);
@@ -77,7 +82,7 @@ public class FindMyMovie {
     }
 
     
-    static String extractFilmTitle(String fileName){
+    public static String extractFilmTitle(String fileName){
         
         
         fileName=fileName.substring(fileName.indexOf("]")+1);
@@ -103,7 +108,7 @@ public class FindMyMovie {
         return fileName;
     }
     
-    static Film generateFilm (String json, String title) {
+    public static Film generateFilm (String json, String title) {
         JSONParser parser = new JSONParser();
         Film film = new Film(title);
         try {

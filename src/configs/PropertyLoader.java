@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package findmymovie;
+package configs;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -22,14 +23,18 @@ public class PropertyLoader{
       Properties properties = new Properties();
 
       FileInputStream input = new FileInputStream(filename);
-      try{
-
-         properties.load(input);
-         return properties;
+      try {
+          
+        properties.load(input);
+        return properties;
       }
-      finally{
+      finally {
          input.close();
       }  
+    }
+    
+    public static String getSeum(String blurp, Optional<String> blourp){
+        return blurp;
     }
     
 }

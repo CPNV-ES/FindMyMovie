@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package findmymovie;
+package configs;
 
 import java.util.Properties;
 

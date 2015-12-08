@@ -1,5 +1,6 @@
-package findmymovie;
+package frames;
 
+import classes.Film;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -139,8 +140,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(25, 25, 25));
         jPanel1.setPreferredSize(new java.awt.Dimension(610, 625));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\sebastien.martin@cpnv.ch\\Documents\\NetBeansProjects\\Test Java\\findmymovies2.png")); // NOI18N
-
         pnlType.setBackground(new java.awt.Color(25, 25, 25));
 
         jLabel1.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
@@ -171,8 +170,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(242, 242, 242));
         jLabel3.setText("Acteur :");
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\sebastien.martin@cpnv.ch\\Documents\\6) Projet\\interro.png")); // NOI18N
-
         txtActors.setBackground(new java.awt.Color(50, 50, 50));
         txtActors.setFont(new java.awt.Font("Raleway", 0, 11)); // NOI18N
         txtActors.setForeground(new java.awt.Color(242, 242, 242));
@@ -186,8 +183,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(242, 242, 242));
         jLabel4.setText("Réalisateur :");
-
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\sebastien.martin@cpnv.ch\\Documents\\6) Projet\\interro.png")); // NOI18N
 
         txtRealisator.setBackground(new java.awt.Color(50, 50, 50));
         txtRealisator.setFont(new java.awt.Font("Raleway", 0, 11)); // NOI18N
