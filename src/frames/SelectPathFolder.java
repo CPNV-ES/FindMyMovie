@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -81,7 +82,7 @@ public class SelectPathFolder extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/findmymovie/top.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/top.png"))); // NOI18N
 
         btnGO.setBackground(new java.awt.Color(255, 78, 0));
         btnGO.setFont(new java.awt.Font("Raleway", 1, 36)); // NOI18N
@@ -135,7 +136,7 @@ public class SelectPathFolder extends javax.swing.JFrame {
                     .addComponent(txtPathFilms, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnGO, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,8 +157,9 @@ public class SelectPathFolder extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         chooser.setDialogTitle("Selectionner le dossier");
+        List<String> extensions = Arrays.asList(configs.Config.getExtensions().split(","));
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "avi - mp4 - mkv", "avi", "*.mp4", "mp4", "*.mkv", "mkv");
+            extensions.get(0) + " - " + extensions.get(1) + " - " + extensions.get(2), extensions.get(0), extensions.get(1), extensions.get(2));
 
         chooser.setDialogTitle("Open schedule file");
         // set selected filter
@@ -211,8 +213,9 @@ public class SelectPathFolder extends javax.swing.JFrame {
             for (Path child : ds) {
                 if (!Files.isDirectory(child)) {
                     String tempFileName = child.getFileName().toString();
-                    String extention = tempFileName.substring(tempFileName.lastIndexOf("."));
-                    if (extention.equals(".avi") || extention.equals(".mkv") || extention.equals(".mp4")){
+                    String extension = tempFileName.substring(tempFileName.lastIndexOf(".")+1);
+                    List<String> extensions = Arrays.asList(configs.Config.getExtensions().split(","));
+                    if (extensions.contains(extension)){
                         String filmName = FindMyMovie.extractFilmTitle(tempFileName.substring(0, tempFileName.lastIndexOf(".")));
                         films.add(new Film(filmName, child.getParent().toString()+"\\"+child.getFileName()));
                     }

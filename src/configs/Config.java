@@ -13,16 +13,20 @@ import java.util.Properties;
  */
 public class Config {
     
-    public final static String PROPERTIES_PATH = System.getProperty("user.dir")+"\\src\\findmymovie\\properties.properties";
+    
+    public final static String PROPERTIES_FILE_PATH = System.getProperty("user.dir")+"\\src\\configs\\properties.properties";
     
     private static String weburl;
+    // List of extensions allowed for the movie files separated by coma : xxx,yyy,zzz
     private static String extensions;
     
     
-    
+    /**
+     * Initialize Config object with the properties from properties.properties
+     */
     private Config(){
         try {
-            Properties properties = PropertyLoader.load(Config.PROPERTIES_PATH);
+            Properties properties = PropertyLoader.load(Config.PROPERTIES_FILE_PATH);
             weburl = properties.getProperty("webserviceurl");
             extensions = properties.getProperty("extensionfilms");
         } catch (Exception e){
@@ -30,15 +34,16 @@ public class Config {
         }        
     }
     
+    // Define singleton of the class
     public final static Config load(){
-        if(null == instance){
-            if (null == instance) {
-                instance = new Config();
-            }
+        if (null == instance){
+            instance = new Config();
         }
         return instance;
     }
 
+    // Getters & Setters
+    
     public static String getWeburl() {
         return weburl;
     }

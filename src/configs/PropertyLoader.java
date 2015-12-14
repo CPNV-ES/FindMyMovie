@@ -17,24 +17,24 @@ import java.util.Properties;
  */
 public class PropertyLoader{
     
-    
+    /**
+     * Load properties from a given file
+     * @param filename
+     * @return
+     * @throws IOException
+     * @throws FileNotFoundException 
+     */
     public static Properties load(String filename) throws IOException, FileNotFoundException{
         
       Properties properties = new Properties();
-
       FileInputStream input = new FileInputStream(filename);
       try {
-          
         properties.load(input);
         return properties;
       }
       finally {
          input.close();
       }  
-    }
-    
-    public static String getSeum(String blurp, Optional<String> blourp){
-        return blurp;
     }
     
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author marco.visalli
+ * @authors Marco, Sébastien, Emmanuel
  */
 public class Film {
     // Attributes
