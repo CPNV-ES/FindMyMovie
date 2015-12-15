@@ -109,7 +109,6 @@ public class FindMyMovie {
     }
     
     public static Film generateFilm (String json, String title) {
-        JSONParser parser = new JSONParser();
         Film film = new Film(title);
         try {
             JSONObject jsonObject = (JSONObject)new JSONParser().parse(json);
@@ -117,7 +116,9 @@ public class FindMyMovie {
             film.setReleaseYear(Integer.parseInt(jsonObject.get("Year").toString()));
             film.setRealisator((jsonObject.get("Writer").toString()));
             film.setTypes(Arrays.asList(jsonObject.get("Genre").toString().split(", ")));
-            film.setReleaseYear(Integer.parseInt(jsonObject.get("Year").toString()));
+            film.setRuntime(jsonObject.get("Runtime").toString());
+            film.setDescription(jsonObject.get("Plot").toString());
+            film.setImage(jsonObject.get("Poster").toString());
         } catch(Exception e){
             System.out.println("Error while converting json");
             return null;

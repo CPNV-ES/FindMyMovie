@@ -191,6 +191,7 @@ public class SelectPathFolder extends javax.swing.JFrame {
             for (Film title : filmTitles){
                 String json = FindMyMovie.getConnexion(title.getTitle());
                 Film film = FindMyMovie.generateFilm(json, title.getTitle());
+//                film.setPath(title.getPath());
                 if (film==null){
                     failFilms.add(title.getPath());
                 } else {
@@ -200,6 +201,7 @@ public class SelectPathFolder extends javax.swing.JFrame {
             for (String filmFail : failFilms){
                 System.out.println("Fail film :"+filmFail);
             }
+            this.setVisible(false);
             CriteriaFrame criteriaFrame = new CriteriaFrame(films, failFilms);
             criteriaFrame.setVisible(true);
         } catch (Exception e){

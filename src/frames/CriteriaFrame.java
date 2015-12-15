@@ -4,6 +4,8 @@ import classes.Film;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,11 +23,10 @@ import javax.swing.JScrollPane;
  */
 public class CriteriaFrame extends javax.swing.JFrame {
 
-     List<Film> allFilms = new ArrayList<Film>();
-     List<Film> selectedFilms = new ArrayList<Film>();
-    private Object frame;
-    public CriteriaFrame(List<Film> films, List<String> filmfails) {
-        
+    List<Film> allFilms = new ArrayList<Film>();
+    List<Film> selectedFilms = new ArrayList<Film>();
+    public CriteriaFrame(List<Film> allFilms, List<String> filmfails) {
+        this.allFilms = allFilms;
         initComponents();
         
         scrollPanel.getViewport().setBackground(new Color(25,25,25));
@@ -33,51 +34,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
         List<String> types = new ArrayList<String>();
-        List<String> actors = new ArrayList<String>();
-        actors.add("De Funes");
-        actors.add("Jim Carrey");
-        actors.add("Christian Clavier");
-        
-        List<String> actors2 = new ArrayList<String>();
-        actors2.add("Jim Carrey");
-        
-        List<String> typeFilms = new ArrayList<String>();
-        typeFilms.add("Action");
-        
-        List<String> typeFilms2 = new ArrayList<String>();
-        typeFilms2.add("Humour");
-        typeFilms2.add("Aventure");
-        typeFilms2.add("Action");
-        
-        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("Le Seigneur des anneaux: Les deux tours de la mort", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("matrix", actors, 2000, "Helmut", typeFilms));
-        allFilms.add(new Film("ace ventura", actors2, 2007, "Bernardo", typeFilms2));
-        
-        List<String> actorsToPutInCb = new ArrayList<>();
         
         int y = 0;
         for (Film film : allFilms){
@@ -434,6 +390,14 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 b2.setBorder(BorderFactory.createLineBorder(new Color(50,50,50)));
                 b2.setSize(336, 40);
                 b2.setLocation(x,y);
+                b2.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                      FilmDetails filmDetails = new FilmDetails(film);
+                      filmDetails.setVisible(true);
+                    }
+                });
                 y +=45;
                 if (y >= 540){
                     JPanelStartHeight += 45;
