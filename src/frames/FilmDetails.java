@@ -9,6 +9,7 @@ import classes.Film;
 import java.awt.Image;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
@@ -24,6 +25,7 @@ public class FilmDetails extends javax.swing.JFrame {
      */
     public FilmDetails(Film film) {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         try {
             
             StringBuffer actors=new StringBuffer();
@@ -54,15 +56,14 @@ public class FilmDetails extends javax.swing.JFrame {
              }
            
             lblTypes.setText(types.toString());
-            URL url=null;
-            if (film.getImage() == null){
-//                url = new URL("");
+            Icon icon =null;
+            if (film.getImage() == null || film.getImage().equals("N/A")){
+                icon = new ImageIcon("..\\images\\img_not_found.jpg");
             } else {
-                url = new URL(film.getImage());
+                URL url = new URL(film.getImage());
+                Image image = ImageIO.read(url);  
+                icon= new ImageIcon(image);
             }
-            Image image = ImageIO.read(url);  
-            ImageIcon icon = new ImageIcon(image); 
-            
             lblImage.setIcon(icon);
             txtpDescription.setText(film.getDescription().toString());
 
@@ -70,8 +71,6 @@ public class FilmDetails extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-//        lblReleasedYear.setText(film.getReleaseYear());
-        
         
     }
 
@@ -216,7 +215,7 @@ public class FilmDetails extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblLength, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                        .addComponent(lblLength, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
