@@ -4,8 +4,6 @@ import classes.Film;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +11,6 @@ import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
 
 
 /**
@@ -23,27 +19,28 @@ import javax.swing.JScrollPane;
  */
 public class CriteriaFrame extends javax.swing.JFrame {
 
+    // Create global variable
+    
     List<Film> allFilms = new ArrayList<Film>();
     List<Film> selectedFilms = new ArrayList<Film>();
+    private Dimension area;
+    Dimension buttonArea;
+    
     public CriteriaFrame(List<Film> allFilms, List<String> filmfails) {
         this.allFilms = allFilms;
         initComponents();
         
-        scrollPanel.getViewport().setBackground(new Color(25,25,25));
-        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        
+        // The test content for testing the component 
         List<String> types = new ArrayList<String>();
+     
         
         int y = 0;
+        
+        // For each type of film, we create a categorie button.
         for (Film film : allFilms){
-            /*for (String actor : film.getActors()){
-                if (!actorsToPutInCb.contains(actor)){
-                    actorsToPutInCb.add(actor);
-                }
-            }*/
             JCheckBox cb = null;
             for (String type : film.getTypes()){
+                // we test if the categorie has already been created we don't create a new button. Else we create a new button
                 if (!types.contains(type)){
                     types.add(type);
                     System.out.println(type);
@@ -51,7 +48,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
                     cb.setLocation(0,y);
                     y+= 20;
                     cb.setSize(200,20);
-                    //cb.setEnabled(false);
                     cb.setBackground(new Color(25,25,25));
                     cb.setFont(Font.decode("Raleway"));
                     cb.setForeground(new Color(242,242,242));
@@ -96,6 +92,8 @@ public class CriteriaFrame extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(25, 25, 25));
         jPanel1.setPreferredSize(new java.awt.Dimension(610, 625));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\sebastien.martin@cpnv.ch\\Documents\\NetBeansProjects\\Test Java\\findmymovies2.png")); // NOI18N
+
         pnlType.setBackground(new java.awt.Color(25, 25, 25));
 
         jLabel1.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
@@ -126,6 +124,8 @@ public class CriteriaFrame extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(242, 242, 242));
         jLabel3.setText("Acteur :");
 
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\sebastien.martin@cpnv.ch\\Documents\\6) Projet\\interro.png")); // NOI18N
+
         txtActors.setBackground(new java.awt.Color(50, 50, 50));
         txtActors.setFont(new java.awt.Font("Raleway", 0, 11)); // NOI18N
         txtActors.setForeground(new java.awt.Color(242, 242, 242));
@@ -139,6 +139,8 @@ public class CriteriaFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(242, 242, 242));
         jLabel4.setText("Réalisateur :");
+
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\sebastien.martin@cpnv.ch\\Documents\\6) Projet\\interro.png")); // NOI18N
 
         txtRealisator.setBackground(new java.awt.Color(50, 50, 50));
         txtRealisator.setFont(new java.awt.Font("Raleway", 0, 11)); // NOI18N
@@ -295,7 +297,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scrollPanel)
                         .addGap(8, 8, 8)))
                 .addGap(32, 32, 32))
         );
@@ -313,18 +315,34 @@ public class CriteriaFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        panelFilms.removeAll();
         
+        // Initialize positions for the film's items
         int y = 0;
         int x = 0;
-        int JPanelStartHeight = 561;
         
+        // A boolean returning if the size of the area has been changed
+        boolean changed = false;
+        
+        // We initialize the size of the abstract object Dimension. 
+        // We will assign the size of this element to the JPanel containing each buttons film if the size has changed
+        area = new Dimension(0,0);
+        
+        // We create a dimension pbject that will set the size of the film's buttons
+        buttonArea = new Dimension (316,40);
+
+        panelFilms.setBackground(Color.black);
+
+        
+        // Create an object film of type Film for each film fund in the Array allFilms and loop on it.
         for (Film film : allFilms){
-            Boolean isConform = true;
-            System.out.println(film.getTitle());
             
-            // test Begin Year
+            
+            // We create a boolean that will define at the end of all the test if the current analyzed film match to the criteria.
+            Boolean isConform = true;
+            
+            // We test if the Begin Year criteria is lower or equal to the creation date of the movie.
             if (!txtYearBegin.getText().trim().isEmpty()){
                 int beginYear = Integer.parseInt(txtYearBegin.getText());
                 if (film.getReleaseYear() < beginYear){
@@ -333,7 +351,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
             }
             
             
-            // test End year
+            // We test if the film's creation date is lower or equal to the End Year criteria
             if (!txtYearEnd.getText().trim().isEmpty()){
                 int endYear = Integer.parseInt(txtYearEnd.getText());
                 if (film.getReleaseYear() > endYear){
@@ -341,7 +359,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 }
             }
             
-            // test acteur
+            // We test if the user tapped an actor's name and if the current movie match an actor tapped
             if (!txtActors.getText().trim().isEmpty()){
                 List<String> actorsCriteria = Arrays.asList(txtActors.getText().split("\\,"));
                 for (String actorCriteria : actorsCriteria){
@@ -387,30 +405,24 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 b2.setBackground(new Color(40,40,40));
                 b2.setHorizontalTextPosition(AbstractButton.LEADING);
                 b2.setBorder(BorderFactory.createLineBorder(new Color(50,50,50)));
-                b2.setSize(336, 40);
+                b2.setSize(316, 40);
                 b2.setLocation(x,y);
-                b2.addActionListener(new ActionListener()
-                {
-                    public void actionPerformed(ActionEvent e)
-                    {
-                      FilmDetails filmDetails = new FilmDetails(film);
-                      filmDetails.setVisible(true);
-                    }
-                });
-                y +=45;
-                if (y >= 540){
-                    JPanelStartHeight += 45;
-                    panelFilms.setSize(new Dimension(342, JPanelStartHeight));  
-                    scrollPanel.revalidate();
-                }
                 panelFilms.add(b2);
-                panelFilms.validate();
+                y += 45;
+                int this_height = (y);
+                if (this_height > area.height) {
+                    area.height = this_height; 
+                    changed=true;
+                }
+                if (changed) {
+                    panelFilms.setPreferredSize(area);
+
+                    panelFilms.revalidate();
+                }
                 panelFilms.repaint();
-                System.out.println(film.getTitle());
             }
-            
         }
-       
+        
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void searchByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchByNameActionPerformed

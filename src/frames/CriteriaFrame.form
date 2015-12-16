@@ -64,11 +64,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" pref="23" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="pnlType" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="scrollPanel" min="-2" max="-2" attributes="0"/>
+                          <Component id="scrollPanel" max="32767" attributes="0"/>
                           <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -79,6 +79,11 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="C:\Users\sebastien.martin@cpnv.ch\Documents\NetBeansProjects\Test Java\findmymovies2.png"/>
+            </Property>
+          </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="pnlType">
           <Properties>
@@ -231,6 +236,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\sebastien.martin@cpnv.ch\Documents\6) Projet\interro.png"/>
+                </Property>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtActors">
               <Properties>
@@ -267,6 +277,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\sebastien.martin@cpnv.ch\Documents\6) Projet\interro.png"/>
+                </Property>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtRealisator">
               <Properties>
