@@ -4,6 +4,8 @@ import classes.Film;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -407,6 +409,14 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 b2.setBorder(BorderFactory.createLineBorder(new Color(50,50,50)));
                 b2.setSize(316, 40);
                 b2.setLocation(x,y);
+                b2.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                      FilmDetails filmDetails = new FilmDetails(film);
+                      filmDetails.setVisible(true);
+                    }
+                });
                 panelFilms.add(b2);
                 y += 45;
                 int this_height = (y);
