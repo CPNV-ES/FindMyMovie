@@ -316,7 +316,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         
-        JLabel lbl = null;
         int y = 0;
         int x = 0;
         int JPanelStartHeight = 561;
