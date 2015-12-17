@@ -338,7 +338,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
             // We create a boolean that will define at the end of all the test if the current analyzed film match to the criteria.
             Boolean isConform = true;
             
-            // We test if the Begin Year criteria is lower or equal to the creation date of the movie.
+            // We test if the Begin Year criteria is greater or equal to the creation date of the movie.
             if (!txtYearBegin.getText().trim().isEmpty()){
                 int beginYear = Integer.parseInt(txtYearBegin.getText());
                 if (film.getReleaseYear() < beginYear){
@@ -365,15 +365,14 @@ public class CriteriaFrame extends javax.swing.JFrame {
                             isMatchActor = true;
                         }
                     }
-
                     if (!isMatchActor){
                         isConform = false;
-
                     }
                 }
             }
-                        
-            // test réalisateur
+               
+            
+            // Test if the the given realisator match to the current film
             if (!txtRealisator.getText().trim().isEmpty()){
                 List<String> realisatorsCriteria = Arrays.asList(txtRealisator.getText().split("\\,"));
                 Boolean isMatchRealisator = false;
@@ -386,11 +385,14 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 if(!isMatchRealisator){
                     isConform = false;
                 }
-            }                    
-            // test recherche nom
-            if (!searchByName.getText().isEmpty() && !searchByName.getText().equals(film.getTitle())){
+            }             
+            
+            
+            // Test if the String given match to the current film
+            if (!searchByName.getText().isEmpty() && !film.getTitle().toUpperCase().contains(searchByName.getText().toUpperCase())){
                 isConform = false;
             }
+            
             
             if (isConform){
                 selectedFilms.add(film);
