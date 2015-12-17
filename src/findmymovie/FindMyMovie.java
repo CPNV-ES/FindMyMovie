@@ -78,7 +78,7 @@ public class FindMyMovie {
     }
 
     /**
-     * Extract the list of the movie titles
+     * Extract the list of the movie titles from the directory
      * @param fileName
      * @return 
      */
@@ -107,6 +107,12 @@ public class FindMyMovie {
         return fileName;
     }
     
+    /**
+     * Fill object film from the given json
+     * @param json
+     * @param title
+     * @return 
+     */
     public static Film generateFilm (String json, String title) {
         Film film = new Film(title);
         try {
