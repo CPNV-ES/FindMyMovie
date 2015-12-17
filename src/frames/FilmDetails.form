@@ -68,21 +68,21 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblTypes" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblTitle" alignment="0" min="-2" pref="323" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
                               <Component id="lblYear" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblLength" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
-                              <Component id="txtpActors" alignment="0" min="-2" pref="268" max="-2" attributes="0"/>
-                              <Component id="txtpDescription" alignment="0" min="-2" pref="508" max="-2" attributes="0"/>
+                              <Component id="txtpDescription" alignment="0" pref="508" max="32767" attributes="0"/>
                               <Component id="jLabel3" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
                               <Component id="lblReleasedYear" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                              <Component id="lblRealisator" alignment="0" min="-2" pref="299" max="-2" attributes="0"/>
+                              <Component id="lblRealisator" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtpActors" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblTypes" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
