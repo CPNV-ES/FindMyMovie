@@ -6,7 +6,9 @@
 package frames;
 
 import classes.Film;
+import java.awt.Desktop;
 import java.awt.Image;
+import java.io.File;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -18,18 +20,22 @@ import javax.swing.ImageIcon;
  */
 public class FilmDetails extends javax.swing.JFrame {
     
-    
-
+    Film film;
     /**
      * Creates new form FilmDetails
+     * @param film
      */
     public FilmDetails(Film film) {
+        this.film = film;
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         try {
             
-            StringBuffer actors=new StringBuffer();
-            lblTitle.setText(film.getTitle());
+            // Set title
+            lblTitle.setText(film.getTitle().trim());
+            
+            // Set actors
+            StringBuilder actors = new StringBuilder();
             
             for (int i=0;i<film.getActors().size();i++){
                 actors.append(film.getActors().get(i));
@@ -41,11 +47,19 @@ public class FilmDetails extends javax.swing.JFrame {
                 }
                 
             }
-             txtpActors.setText(actors.toString());
-            lblLength.setText(film.getRuntime().toString());
+            txtpActors.setText(actors.toString());
             
+            // Set released year
+            lblReleasedYear.setText(Integer.toString(film.getReleaseYear()));
             
-            StringBuffer types=new StringBuffer();
+            // Set realisator
+            lblRealisator.setText(film.getRealisator());
+            
+            // Set runtime
+            lblLength.setText(film.getRuntime());
+            
+            // Set 
+            StringBuilder types=new StringBuilder();
                         
              for (int i=0;i<film.getTypes().size();i++){
                 types.append(film.getTypes().get(i));
@@ -56,16 +70,14 @@ public class FilmDetails extends javax.swing.JFrame {
              }
            
             lblTypes.setText(types.toString());
-            Icon icon =null;
-            if (film.getImage() == null || film.getImage().equals("N/A")){
-                icon = new ImageIcon("..\\images\\img_not_found.jpg");
-            } else {
+            Icon icon;
+            if (film.getImage() != null || !film.getImage().equals("N/A")){
                 URL url = new URL(film.getImage());
                 Image image = ImageIO.read(url);  
                 icon= new ImageIcon(image);
+                lblImage.setIcon(icon);
             }
-            lblImage.setIcon(icon);
-            txtpDescription.setText(film.getDescription().toString());
+            txtpDescription.setText(film.getDescription());
 
             
         } catch (Exception e){
@@ -98,10 +110,14 @@ public class FilmDetails extends javax.swing.JFrame {
         lblImage = new javax.swing.JLabel();
         txtpDescription = new javax.swing.JTextPane();
         jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblReleasedYear = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblRealisator = new javax.swing.JLabel();
+        btnGO = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(25, 25, 25));
-        setPreferredSize(new java.awt.Dimension(1000, 800));
         setResizable(false);
         setSize(new java.awt.Dimension(1000, 800));
 
@@ -116,7 +132,6 @@ public class FilmDetails extends javax.swing.JFrame {
 
         lblTitle.setFont(new java.awt.Font("Raleway", 1, 15)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitle.setText("TITRE");
 
         lblYear.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 15)); // NOI18N
         lblYear.setForeground(new java.awt.Color(95, 95, 95));
@@ -149,6 +164,8 @@ public class FilmDetails extends javax.swing.JFrame {
         lblTypes.setForeground(new java.awt.Color(240, 240, 240));
         lblTypes.setText("genre");
 
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/img_not_found.jpg"))); // NOI18N
+
         txtpDescription.setBackground(new java.awt.Color(25, 25, 25));
         txtpDescription.setBorder(null);
         txtpDescription.setFont(new java.awt.Font("Raleway", 1, 15)); // NOI18N
@@ -159,6 +176,31 @@ public class FilmDetails extends javax.swing.JFrame {
 
         jLabel6.setBackground(new java.awt.Color(25, 25, 25));
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/top3.jpg"))); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 15)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(95, 95, 95));
+        jLabel3.setText("Année de sortie :");
+
+        lblReleasedYear.setFont(new java.awt.Font("Raleway", 1, 15)); // NOI18N
+        lblReleasedYear.setForeground(new java.awt.Color(240, 240, 240));
+
+        jLabel7.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 15)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(95, 95, 95));
+        jLabel7.setText("Réalisateur :");
+
+        lblRealisator.setFont(new java.awt.Font("Raleway", 1, 15)); // NOI18N
+        lblRealisator.setForeground(new java.awt.Color(240, 240, 240));
+
+        btnGO.setBackground(new java.awt.Color(255, 78, 0));
+        btnGO.setFont(new java.awt.Font("Raleway", 1, 36)); // NOI18N
+        btnGO.setForeground(new java.awt.Color(255, 255, 255));
+        btnGO.setText("PLAY");
+        btnGO.setBorderPainted(false);
+        btnGO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGOActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -173,23 +215,30 @@ public class FilmDetails extends javax.swing.JFrame {
                         .addComponent(lblDescription)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtpActors, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblYear, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTypes)
                             .addComponent(jLabel5)
-                            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblLength, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtpDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblTypes)
+                            .addComponent(jLabel4)
+                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblYear, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(lblLength, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtpActors, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtpDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblReleasedYear, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRealisator, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .addComponent(btnGO, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(140, 140, 140))))
             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
@@ -199,34 +248,47 @@ public class FilmDetails extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblKind)
-                        .addGap(74, 74, 74))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel1)
-                        .addGap(17, 17, 17)
-                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblReleasedYear, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblRealisator, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblYear)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(txtpActors, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblLength, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblLength, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(lblTypes)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
-                        .addGap(26, 26, 26)
-                        .addComponent(txtpDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)))
-                .addComponent(lblDescription)
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(txtpDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDescription)
+                        .addContainerGap())
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                                .addComponent(lblKind)
+                                .addGap(74, 74, 74))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                                .addComponent(btnGO, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(123, 123, 123))))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -237,13 +299,21 @@ public class FilmDetails extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 29, Short.MAX_VALUE))
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGOActionPerformed
+        
+        System.out.println(film.getPath());
+        try {
+            Desktop.getDesktop().open(new File(film.getPath()));
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_btnGOActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,15 +345,20 @@ public class FilmDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGO;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblKind;
     private javax.swing.JLabel lblLength;
+    private javax.swing.JLabel lblRealisator;
+    private javax.swing.JLabel lblReleasedYear;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTypes;
     private javax.swing.JLabel lblYear;

@@ -191,10 +191,10 @@ public class SelectPathFolder extends javax.swing.JFrame {
             for (Film title : filmTitles){
                 String json = FindMyMovie.getConnexion(title.getTitle());
                 Film film = FindMyMovie.generateFilm(json, title.getTitle());
-//                film.setPath(title.getPath());
                 if (film==null){
                     failFilms.add(title.getPath());
                 } else {
+                    film.setPath(title.getPath());
                     films.add(film);
                 }
             }
