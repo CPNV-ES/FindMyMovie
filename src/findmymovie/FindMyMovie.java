@@ -15,7 +15,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.json.simple.JSONObject;
@@ -58,12 +57,13 @@ public class FindMyMovie {
             conn.setRequestProperty("Accept", "application/json");
 
             if (conn.getResponseCode() != 200) {
-                    throw new RuntimeException("Failed : HTTP error code : "+ conn.getResponseCode());
+                throw new RuntimeException("Failed : HTTP error code : "+ conn.getResponseCode());
             }
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
             
             // Fill json
             json = br.readLine();
+            
             conn.disconnect();
 
         } catch (MalformedURLException e) {
@@ -75,7 +75,6 @@ public class FindMyMovie {
         }
         
         return json;
-        
     }
 
     /**
@@ -86,7 +85,7 @@ public class FindMyMovie {
     public static String extractFilmTitle(String fileName){
         
         fileName=fileName.substring(fileName.indexOf("]")+1);
-        List<String> items = new ArrayList<>();
+        List<String> items;
         String[] pieces = fileName.split("[\\s_.]");
         items = Arrays.asList( pieces );
         int i=0;

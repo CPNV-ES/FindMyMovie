@@ -190,6 +190,9 @@ public class SelectPathFolder extends javax.swing.JFrame {
         search();
     }
     
+    /**
+     * Select files in a given folder
+     */
     private void search(){
         Path directory = Paths.get(txtPathFilms.getText());
         List<Film> filmTitles = new ArrayList<>();
