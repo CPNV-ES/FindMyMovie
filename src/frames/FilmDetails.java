@@ -58,7 +58,7 @@ public class FilmDetails extends javax.swing.JFrame {
             // Set runtime
             lblLength.setText(film.getRuntime());
             
-            // Set 
+            // Set the film types
             StringBuilder types=new StringBuilder();
                         
              for (int i=0;i<film.getTypes().size();i++){
@@ -69,6 +69,8 @@ public class FilmDetails extends javax.swing.JFrame {
              }
            
             lblTypes.setText(types.toString());
+            
+            // Set image
             Icon icon;
             if (film.getImage() != null || !film.getImage().equals("N/A")){
                 URL url = new URL(film.getImage());
@@ -76,6 +78,8 @@ public class FilmDetails extends javax.swing.JFrame {
                 icon= new ImageIcon(image);
                 lblImage.setIcon(icon);
             }
+            
+            // Set description
             txtpDescription.setText(film.getDescription());
 
             

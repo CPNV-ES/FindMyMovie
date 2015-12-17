@@ -5,7 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,12 +31,14 @@ public class CriteriaFrame extends javax.swing.JFrame {
     Dimension buttonArea;
     
     public CriteriaFrame(List<Film> allFilms, List<String> filmfails) {
+        
         this.allFilms = allFilms;
         initComponents();
+        addListeners();
         
         // The test content for testing the component 
         List<String> types = new ArrayList<>();
-     
+
         
         int y = 0;
         int i = 0;
@@ -59,6 +62,14 @@ public class CriteriaFrame extends javax.swing.JFrame {
                     cb.setFont(Font.decode("Raleway"));
                     cb.setForeground(new Color(242,242,242));
                     cb.setHideActionText(true);
+                    cb.addKeyListener(new KeyAdapter(){
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                                search();
+                            }
+                        }
+                    });
                     cbTypes.add(cb);
                     if (i < 7){
                         panelType.add(cb);
@@ -82,7 +93,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        pnlType = new javax.swing.JPanel();
+        pnlCriteria = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtYearBegin = new javax.swing.JTextField();
         txtYearEnd = new javax.swing.JTextField();
@@ -109,7 +120,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/top.png"))); // NOI18N
 
-        pnlType.setBackground(new java.awt.Color(25, 25, 25));
+        pnlCriteria.setBackground(new java.awt.Color(25, 25, 25));
 
         jLabel1.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(242, 242, 242));
@@ -218,40 +229,40 @@ public class CriteriaFrame extends javax.swing.JFrame {
             .addGap(0, 157, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout pnlTypeLayout = new javax.swing.GroupLayout(pnlType);
-        pnlType.setLayout(pnlTypeLayout);
-        pnlTypeLayout.setHorizontalGroup(
-            pnlTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTypeLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlCriteriaLayout = new javax.swing.GroupLayout(pnlCriteria);
+        pnlCriteria.setLayout(pnlCriteriaLayout);
+        pnlCriteriaLayout.setHorizontalGroup(
+            pnlCriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCriteriaLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(pnlTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlCriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlTypeLayout.createSequentialGroup()
+                    .addGroup(pnlCriteriaLayout.createSequentialGroup()
                         .addComponent(txtYearBegin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtYearEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtActors)
                     .addComponent(txtRealisator)
-                    .addGroup(pnlTypeLayout.createSequentialGroup()
+                    .addGroup(pnlCriteriaLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlTypeLayout.createSequentialGroup()
+                    .addGroup(pnlCriteriaLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(searchByName, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlTypeLayout.createSequentialGroup()
+                    .addGroup(pnlCriteriaLayout.createSequentialGroup()
                         .addComponent(panelType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelType2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-        pnlTypeLayout.setVerticalGroup(
-            pnlTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTypeLayout.createSequentialGroup()
+        pnlCriteriaLayout.setVerticalGroup(
+            pnlCriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCriteriaLayout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
@@ -259,18 +270,18 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlCriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtYearBegin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtYearEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlCriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtActors, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(pnlTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTypeLayout.createSequentialGroup()
+                .addGroup(pnlCriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCriteriaLayout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRealisator, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,7 +289,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
-                .addGroup(pnlTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlCriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelType2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -313,7 +324,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollPanel)
                 .addContainerGap())
@@ -324,7 +335,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlCriteria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(8, 8, 8)))
@@ -345,6 +356,11 @@ public class CriteriaFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        search();
+    }//GEN-LAST:event_btnSearchActionPerformed
+    
+    private void search(){
+        // Clear results from last search
         panelFilms.removeAll();
         
         // Initialize positions for the film's items
@@ -365,7 +381,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
         // Create an object film of type Film for each film fund in the Array allFilms and loop on it.
         for (Film film : allFilms){
             
-            
             // We create a boolean that will define at the end of all the test if the current analyzed film match to the criteria.
             Boolean isConform = true;
             
@@ -376,7 +391,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
                     isConform = false;
                 }
             }
-            
             
             // We test if the film's creation date is lower or equal to the End Year criteria
             if (!txtYearEnd.getText().trim().isEmpty()){
@@ -401,7 +415,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
                     }
                 }
             }
-               
             
             // Test if the the given realisator match to the current film
             if (!txtRealisator.getText().trim().isEmpty()){
@@ -417,7 +430,6 @@ public class CriteriaFrame extends javax.swing.JFrame {
                     isConform = false;
                 }
             }             
-            
             
             // Test if the String given match to the current film
             if (!searchByName.getText().isEmpty() && !film.getTitle().toUpperCase().contains(searchByName.getText().toUpperCase())){
@@ -454,13 +466,9 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 b2.setBorder(BorderFactory.createLineBorder(new Color(50,50,50)));
                 b2.setSize(316, 40);
                 b2.setLocation(x,y);
-                b2.addActionListener(new ActionListener()
-                {
-                    public void actionPerformed(ActionEvent e)
-                    {
-                      FilmDetails filmDetails = new FilmDetails(film);
-                      filmDetails.setVisible(true);
-                    }
+                b2.addActionListener((ActionEvent e) -> {
+                    FilmDetails filmDetails = new FilmDetails(film);
+                    filmDetails.setVisible(true);
                 });
                 panelFilms.add(b2);
                 y += 45;
@@ -477,9 +485,66 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 panelFilms.repaint();
             }
         }
+    }
+    
+    private void addListeners(){
+        btnSearch.requestFocus();
         
-    }//GEN-LAST:event_btnSearchActionPerformed
-
+        btnSearch.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    search();
+                }
+            }
+        });
+        
+        searchByName.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    search();
+                }
+            }
+        });
+        
+        txtYearBegin.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    search();
+                }
+            }
+        });
+        
+        txtYearEnd.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    search();
+                }
+            }
+        });
+        
+        txtActors.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    search();
+                }
+            }
+        });
+        
+        txtRealisator.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    search();
+                }
+            }
+        });
+    }
+    
     private void searchByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchByNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchByNameActionPerformed
@@ -514,7 +579,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelFilms;
     private javax.swing.JPanel panelType;
     private javax.swing.JPanel panelType2;
-    private javax.swing.JPanel pnlType;
+    private javax.swing.JPanel pnlCriteria;
     private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JTextField searchByName;
     private javax.swing.JTextField txtActors;
