@@ -7,6 +7,8 @@ package frames;
 
 import findmymovie.FindMyMovie;
 import classes.Film;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -32,7 +34,15 @@ public class SelectPathFolder extends javax.swing.JFrame {
      */
     public SelectPathFolder() {
         initComponents();
-        lblError.setVisible(false);
+        
+        // Hide error messages
+        lblErrorConnexion.setVisible(false);
+        lblErrorPath.setVisible(false);
+        
+        // Set the position of the frame
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);   
+
         txtPathFilms.addKeyListener(new KeyAdapter(){
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -57,7 +67,8 @@ public class SelectPathFolder extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnGO = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        lblError = new javax.swing.JLabel();
+        lblErrorConnexion = new javax.swing.JLabel();
+        lblErrorPath = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,10 +109,15 @@ public class SelectPathFolder extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Selectionnez votre dossier contenant les films");
 
-        lblError.setBackground(new java.awt.Color(25, 25, 25));
-        lblError.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
-        lblError.setForeground(new java.awt.Color(204, 0, 0));
-        lblError.setText("Il n'y a aucun fichier film dans ce répertoire");
+        lblErrorConnexion.setBackground(new java.awt.Color(25, 25, 25));
+        lblErrorConnexion.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
+        lblErrorConnexion.setForeground(new java.awt.Color(204, 0, 0));
+        lblErrorConnexion.setText("Vous n'êtes pas connecté à internet");
+
+        lblErrorPath.setBackground(new java.awt.Color(25, 25, 25));
+        lblErrorPath.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
+        lblErrorPath.setForeground(new java.awt.Color(204, 0, 0));
+        lblErrorPath.setText("Il n'y a aucun fichier film dans ce répertoire");
 
         javax.swing.GroupLayout pnlBrowseLayout = new javax.swing.GroupLayout(pnlBrowse);
         pnlBrowse.setLayout(pnlBrowseLayout);
@@ -109,13 +125,18 @@ public class SelectPathFolder extends javax.swing.JFrame {
             pnlBrowseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBrowseLayout.createSequentialGroup()
                 .addGroup(pnlBrowseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel1)
                     .addGroup(pnlBrowseLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(txtPathFilms)
+                        .addGroup(pnlBrowseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblErrorPath)
+                            .addComponent(txtPathFilms)
+                            .addGroup(pnlBrowseLayout.createSequentialGroup()
+                                .addComponent(lblErrorConnexion)
+                                .addGap(20, 20, 20)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addComponent(jLabel1))
+                        .addGap(12, 12, 12)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(pnlBrowseLayout.createSequentialGroup()
                 .addGroup(pnlBrowseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,11 +145,7 @@ public class SelectPathFolder extends javax.swing.JFrame {
                         .addComponent(btnGO, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlBrowseLayout.createSequentialGroup()
                         .addGap(93, 93, 93)
-                        .addGroup(pnlBrowseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(pnlBrowseLayout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(lblError)))))
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlBrowseLayout.setVerticalGroup(
@@ -137,9 +154,11 @@ public class SelectPathFolder extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(44, 44, 44)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(lblError)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblErrorConnexion)
+                .addGap(5, 5, 5)
+                .addComponent(lblErrorPath)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBrowseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPathFilms, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -203,19 +222,15 @@ public class SelectPathFolder extends javax.swing.JFrame {
             for (Film title : filmTitles){
                 String json = FindMyMovie.getConnexion(title.getTitle());
                 Film film = FindMyMovie.generateFilm(json, title.getTitle());
-                if (film==null){
+                if (film == null){
                     failFilms.add(title.getPath());
                 } else {
                     film.setPath(title.getPath());
                     films.add(film);
                 }
             }
-            for (String filmFail : failFilms){
-                System.out.println("Fail film :"+filmFail);
-            }
-            
             if (films.isEmpty() && failFilms.isEmpty()) {
-                lblError.setVisible(true);
+                lblErrorPath.setVisible(true);
             } else {
                 this.setVisible(false);
                 CriteriaFrame criteriaFrame = new CriteriaFrame(films, failFilms);
@@ -226,7 +241,13 @@ public class SelectPathFolder extends javax.swing.JFrame {
         } 
     }
         
-    
+    /**
+     * Explore the whole directory
+     * @param directory
+     * @param films
+     * @return
+     * @throws IOException 
+     */
     static List<Film> addTree(Path directory, List<Film> films) throws IOException {
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(directory)) {
             for (Path child : ds) {
@@ -289,7 +310,8 @@ public class SelectPathFolder extends javax.swing.JFrame {
     private javax.swing.JButton btnGO;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblErrorConnexion;
+    private javax.swing.JLabel lblErrorPath;
     private javax.swing.JPanel pnlBrowse;
     private javax.swing.JTextField txtPathFilms;
     // End of variables declaration//GEN-END:variables

@@ -7,7 +7,9 @@ package frames;
 
 import classes.Film;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
 import javax.imageio.ImageIO;
@@ -28,6 +30,11 @@ public class FilmDetails extends javax.swing.JFrame {
     public FilmDetails(Film film) {
         this.film = film;
         initComponents();
+        
+        // Set the position of the frame
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);   
+        
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         try {
             

@@ -118,7 +118,7 @@ public class FindMyMovie {
         try {
             JSONObject jsonObject = (JSONObject)new JSONParser().parse(json);
             film.setActors(Arrays.asList(jsonObject.get("Actors").toString().split(", ")));
-            film.setReleaseYear(Integer.parseInt(jsonObject.get("Year").toString()));
+            film.setReleaseYear(Integer.parseInt(jsonObject.get("Year").toString().substring(0,3)));
             film.setRealisator((jsonObject.get("Writer").toString()));
             film.setTypes(Arrays.asList(jsonObject.get("Genre").toString().split(", ")));
             film.setRuntime(jsonObject.get("Runtime").toString());

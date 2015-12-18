@@ -4,6 +4,7 @@ import classes.Film;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -17,24 +18,32 @@ import javax.swing.JCheckBox;
 
 
 /**
- *
  * 
+ * @author Emmanuel.BARCHICHAT
  */
 public class CriteriaFrame extends javax.swing.JFrame {
 
     // Create global variable
     
     List<Film> allFilms = new ArrayList<>();
+    List<String> filmFails = new ArrayList<>();
     List<JCheckBox> cbTypes = new ArrayList<>();
     private Dimension area;
     Dimension buttonArea;
     
-    public CriteriaFrame(List<Film> allFilms, List<String> filmfails) {
+    public CriteriaFrame(List<Film> allFilms, List<String> filmFails) {
         
         this.allFilms = allFilms;
+        this.filmFails = filmFails;
+        
+        
         initComponents();
         addListeners();
-        
+
+        // Set the position of the frame
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);   
+
         // Get all types and generate checkbox for each single type
         List<String> types = new ArrayList<>();
 
@@ -113,8 +122,9 @@ public class CriteriaFrame extends javax.swing.JFrame {
         btnSearch = new javax.swing.JButton();
         panelType = new javax.swing.JPanel();
         panelType2 = new javax.swing.JPanel();
-        scrollPanel = new javax.swing.JScrollPane();
+        spnlButtons = new javax.swing.JScrollPane();
         panelFilms = new javax.swing.JPanel();
+        btnShowFilmFail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -301,8 +311,8 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
         );
 
-        scrollPanel.setBackground(new java.awt.Color(25, 25, 25));
-        scrollPanel.setBorder(null);
+        spnlButtons.setBackground(new java.awt.Color(25, 25, 25));
+        spnlButtons.setBorder(null);
 
         panelFilms.setBackground(new java.awt.Color(25, 25, 25));
 
@@ -314,10 +324,21 @@ public class CriteriaFrame extends javax.swing.JFrame {
         );
         panelFilmsLayout.setVerticalGroup(
             panelFilmsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 584, Short.MAX_VALUE)
+            .addGap(0, 597, Short.MAX_VALUE)
         );
 
-        scrollPanel.setViewportView(panelFilms);
+        spnlButtons.setViewportView(panelFilms);
+
+        btnShowFilmFail.setBackground(new java.awt.Color(255, 78, 0));
+        btnShowFilmFail.setFont(new java.awt.Font("Roboto", 1, 11)); // NOI18N
+        btnShowFilmFail.setForeground(new java.awt.Color(255, 255, 255));
+        btnShowFilmFail.setText("FILMS NON IDENTIFIES");
+        btnShowFilmFail.setBorder(null);
+        btnShowFilmFail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowFilmFailActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -330,20 +351,27 @@ public class CriteriaFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pnlType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPanel)
+                .addComponent(spnlButtons)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnShowFilmFail, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(8, 8, 8)))
-                .addGap(32, 32, 32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pnlType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(spnlButtons, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnShowFilmFail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -354,9 +382,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
         );
 
         pack();
@@ -463,8 +489,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
             // Create a button with the film title for each film conform to the criteria
             if (isConform){
                 JButton b2 = new JButton(film.getTitle().toUpperCase());
-                Font fonte = new Font("Raleway",Font.BOLD,12);
-                b2.setFont(fonte);
+                b2.setFont(new Font("Raleway",Font.BOLD,12));
                 b2.setForeground(new Color(230,230,230));
                 b2.setBackground(new Color(40,40,40));
                 b2.setHorizontalTextPosition(AbstractButton.LEADING);
@@ -496,7 +521,7 @@ public class CriteriaFrame extends javax.swing.JFrame {
     }
     
     /**
-     * Add a key listener to each field
+     * Add a key listener to each field to press enter to generate films
      */
     private void addListeners(){
         btnSearch.requestFocus();
@@ -576,8 +601,15 @@ public class CriteriaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtYearBeginActionPerformed
 
+    private void btnShowFilmFailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowFilmFailActionPerformed
+        FilmFails frame = new FilmFails(filmFails);
+        frame.setVisible(true);
+        
+    }//GEN-LAST:event_btnShowFilmFailActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnShowFilmFail;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -591,8 +623,8 @@ public class CriteriaFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelType;
     private javax.swing.JPanel panelType2;
     private javax.swing.JPanel pnlType;
-    private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JTextField searchByName;
+    private javax.swing.JScrollPane spnlButtons;
     private javax.swing.JTextField txtActors;
     private javax.swing.JTextField txtRealisator;
     private javax.swing.JTextField txtYearBegin;
