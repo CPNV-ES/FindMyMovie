@@ -5,6 +5,7 @@
  */
 package configs;
 
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -12,9 +13,6 @@ import java.util.Properties;
  * @author Emmanuel.BARCHICHAT
  */
 public class Config {
-    
-    
-    public final static String PROPERTIES_FILE_PATH = System.getProperty("user.dir")+"\\src\\configs\\properties.properties";
     
     private static String weburl;
     // List of extensions allowed for the movie files separated by coma : xxx,yyy,zzz
@@ -26,7 +24,12 @@ public class Config {
      */
     private Config(){
         try {
-            Properties properties = PropertyLoader.load(Config.PROPERTIES_FILE_PATH);
+            
+            // Load properties
+            InputStream in = getClass().getResourceAsStream("properties.properties");
+            Properties properties = new Properties();
+            properties.load(in);
+            
             weburl = properties.getProperty("webserviceurl");
             extensions = properties.getProperty("extensionfilms");
         } catch (Exception e){
